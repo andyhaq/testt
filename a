@@ -1,0 +1,13 @@
+#!/bin/sh
+src=/var/lib/jenkins/workspace/tomcat-dploy/webapp/target/webapp.war
+dst=/tmp/webapp.war
+ip=10.0.0.62
+if [ -f $src ] ; then
+echo "file exists"
+echo "copying file from jenkins to ansible server"
+scp $src ansadmin@$ip:$dst
+echo "Running yaml file in ansible server"
+ansible-playbook /root/anstomcat.yaml
+else
+echo file doesnot exist in $src;
+fi
